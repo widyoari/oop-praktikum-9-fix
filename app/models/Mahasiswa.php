@@ -17,6 +17,28 @@ use App\Core\Model;
         return $data;
     }
 
+    public function simpan($nim,$nama,$alamat)
+    {
+        try {
+            $sql = "insert into tb_mhsw values ('','$nim','$nama','SI','$alamat', NOW(), NOW())";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            echo "DATA BERHASIL DISIMPAN !";
+        } catch (Exception $e) {
+            die ("Maaf Error, " . $e->getMessage());
+        }
+    } 
+    public function hapus($id)
+    {
+        try {
+            $sqls = "delete from tb_mhsw where mhsw_id=$id";
+            $stmts = $this->db->prepare($sqls);
+            $stmts->execute();
+            echo "DATA BERHASIL DIHAPUS !";
+         } catch (Exception $e) {
+            die ("Maaf Error, " . $e->getMessage());
+        }       
+    } 
     public function tampil_cari($nim,$nama,$alamat)
     {
         if($nim!='') $a = "or mhsw_nim like '%".$nim."%' ";

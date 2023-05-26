@@ -18,9 +18,9 @@ class Index extends Controller
 		else $data['reset'] ='';
 		if(isset($_POST['cari'])) $data['cari'] =$_POST['cari'];
 		else $data['cari'] ='';
-		if(isset($_POST['aksi'])) $data['aksi'] =$_POST['aksi'];
+		if(isset($_GET['aksi'])) $data['aksi'] =$_GET['aksi'];
 		else $data['aksi'] ='';
-		if(isset($_POST['id'])) $data['id'] =$_POST['id'];
+		if(isset($_GET['mhsw_id'])) $data['id'] =$_GET['mhsw_id'];
 		else $data['id'] ='';
 		if(isset($_POST['nim'])) $data['nim'] =$_POST['nim'];
 		else $data['nim'] ='';
@@ -34,6 +34,14 @@ class Index extends Controller
 		   $rows_mhsw = $mhsw->tampil_cari($data['nim'],$data['nama'],$data['alamat']);
 		}else {
 			$rows_mhsw = $mhsw->tampil();			
+		}
+		if($data['simpan']=="simpan")  {
+		   $mhsw->simpan($data['nim'],$data['nama'],$data['alamat']);
+		   $rows_mhsw = $mhsw->tampil();
+		}		
+		if($data['aksi']=="hapus")  {
+		    $mhsw->hapus($data['id']);
+		    $rows_mhsw = $mhsw->tampil();
 		}
 		$data['row_index'] = "Ini file app/controllers/Index.php - index()";
 		$this->webboard('index/index', $data, $rows_mhsw);
