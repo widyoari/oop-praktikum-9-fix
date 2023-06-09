@@ -49,7 +49,7 @@ class Index extends Controller
 		    $data = $mhsw->tampil_update($data['id']);
 		    $rows_mhsw = $mhsw->tampil();
 		}	
-		if(isset($data['update'])=="update")  {
+		if($data['update']=="update")  {
 		   $mhsw->update($data['id_update'], $data['nim'],$data['nama'],$data['alamat']);
 		   $rows_mhsw = $mhsw->tampil();
 		}			
