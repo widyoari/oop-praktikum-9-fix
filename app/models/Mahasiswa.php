@@ -55,5 +55,30 @@ use App\Core\Model;
             $data[] = $rows;
             }
         return $data;
-    }   
+    } 
+
+    public function tampil_update($id)
+    {
+        $sql = "SELECT * FROM tb_mhsw where mhsw_id='".$id."'";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $data = [];
+        $rows = $stmt->fetch();
+        $data['id'] = $rows['mhsw_id'];
+        $data['nim'] = $rows['mhsw_nim'];
+        $data['nama'] = $rows['mhsw_nama'];
+        $data['alamat'] = $rows['mhsw_alamat'];
+        return $data;
+    }     
+    public function update($id, $nim,$nama,$alamat)
+    {
+        try {        
+            $sql = "update tb_mhsw set mhsw_nim='".$nim."', mhsw_nama='".$nama."', mhsw_alamat='".$alamat."' where mhsw_id='".$id."'";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            echo "DATA BERHASIL DIUPDATE !";
+        } catch (Exception $e) {
+            die ("Maaf Error, " . $e->getMessage());
+        }  
+    }      
  }

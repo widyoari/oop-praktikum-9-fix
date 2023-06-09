@@ -22,6 +22,8 @@ class Index extends Controller
 		else $data['aksi'] ='';
 		if(isset($_GET['mhsw_id'])) $data['id'] =$_GET['mhsw_id'];
 		else $data['id'] ='';
+		if(isset($_POST['id'])) $data['id_update'] =$_POST['id'];
+		else $data['id_update'] ='';		
 		if(isset($_POST['nim'])) $data['nim'] =$_POST['nim'];
 		else $data['nim'] ='';
 		if(isset($_POST['nama'])) $data['nama'] =$_POST['nama'];
@@ -43,6 +45,14 @@ class Index extends Controller
 		    $mhsw->hapus($data['id']);
 		    $rows_mhsw = $mhsw->tampil();
 		}
+		if($data['aksi']=="lihat_update")  {
+		    $data = $mhsw->tampil_update($data['id']);
+		    $rows_mhsw = $mhsw->tampil();
+		}	
+		if(isset($data['update'])=="update")  {
+		   $mhsw->update($data['id_update'], $data['nim'],$data['nama'],$data['alamat']);
+		   $rows_mhsw = $mhsw->tampil();
+		}			
 		$data['row_index'] = "Ini file app/controllers/Index.php - index()";
 		$this->webboard('index/index', $data, $rows_mhsw);
 	}
