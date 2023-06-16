@@ -48,11 +48,12 @@ class Index extends Controller
 		if($data['aksi']=="lihat_update")  {
 		    $data = $mhsw->tampil_update($data['id']);
 		    $rows_mhsw = $mhsw->tampil();
+			if(isset($data['update'])=="update")  {
+			   $mhsw->update($data['id_update'], $data['nim'],$data['nama'],$data['alamat']);
+			   $rows_mhsw = $mhsw->tampil();
+			}		    
 		}	
-		if($data['update']=="update")  {
-		   $mhsw->update($data['id_update'], $data['nim'],$data['nama'],$data['alamat']);
-		   $rows_mhsw = $mhsw->tampil();
-		}			
+			
 		$data['row_index'] = "Ini file app/controllers/Index.php - index()";
 		$this->webboard('index/index', $data, $rows_mhsw);
 	}
