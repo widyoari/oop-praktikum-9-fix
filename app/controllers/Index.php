@@ -22,8 +22,8 @@ class Index extends Controller
 		else $data['aksi'] ='';
 		if(isset($_GET['mhsw_id'])) $data['id'] =$_GET['mhsw_id'];
 		else $data['id'] ='';
-		if(isset($_POST['id'])) $data['id_update'] =$_POST['id'];
-		else $data['id_update'] ='';		
+		if(isset($_POST['id'])) $id_update =$_POST['id'];
+		else $id_update ='';		
 		if(isset($_POST['nim'])) $data['nim'] =$_POST['nim'];
 		else $data['nim'] ='';
 		if(isset($_POST['nama'])) $data['nama'] =$_POST['nama'];
@@ -32,6 +32,13 @@ class Index extends Controller
 		else $data['alamat'] ='';
 
 		$mhsw = new Mahasiswa();
+		if($data['reset']=="reset")  {
+			$data['id'] = "";
+			$data['nim'] = "";
+			$data['nama'] = "";
+			$data['alamat'] = "";
+			$rows_mhsw = $mhsw->tampil();			
+		}		
 		if($data['cari']=="cari")  {
 		   $rows_mhsw = $mhsw->tampil_cari($data['nim'],$data['nama'],$data['alamat']);
 		}else {
@@ -40,6 +47,14 @@ class Index extends Controller
 		if($data['simpan']=="simpan")  {
 		   $mhsw->simpan($data['nim'],$data['nama'],$data['alamat']);
 		   $rows_mhsw = $mhsw->tampil();
+		}
+		if($data['update']=="update")  {
+		   $mhsw->update($id_update,$data['nim'],$data['nama'],$data['alamat']);
+		   	$data['id'] = "";
+			$data['nim'] = "";
+			$data['nama'] = "";
+			$data['alamat'] = "";
+		    $rows_mhsw = $mhsw->tampil();
 		}		
 		if($data['aksi']=="hapus")  {
 		    $mhsw->hapus($data['id']);
